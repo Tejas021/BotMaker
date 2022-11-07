@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 router.post("/",async(req,res)=>{
-    fetch("https://slack.com/api/apps.manifest.create",{
+    await fetch("https://slack.com/api/apps.manifest.create",{
         method:"POST",
         headers:{
             Authorization:`Bearer ${req.body.token}`

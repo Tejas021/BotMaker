@@ -43,9 +43,9 @@ router.post("/bot", async (req, res) => {
             charset:"UTF-8"
         }
     })
-    // const jsonResp = await resp.json();
+    const jsonResp = await resp.data;
     console.log("resp",resp.data);
-    // res.send(req.body)
+    res.send(jsonResp)
 })
 
 module.exports = router

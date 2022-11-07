@@ -1,14 +1,12 @@
 const express = require('express')
+const axios = require('axios')
 const router = express.Router()
-router.post("/",async(req,res)=>{
-    await fetch("https://slack.com/api/apps.manifest.create",{
-        method:"POST",
-        headers:{
-            Authorization:`Bearer ${req.body.token}`
-        },
-        body:JSON.stringify({
-            "manifest":{
-         "display_information": {
+
+router.post("/bot", async (req, res) => {
+    console.log(req.body)
+    const data = JSON.stringify({
+        "manifest": {
+            "display_information": {
                 "name": req.body.botName
             },
             "settings": {
@@ -17,28 +15,37 @@ router.post("/",async(req,res)=>{
                 "is_hosted": false,
                 "token_rotation_enabled": false
             },
-            "features":{
-                "bot_user":{
-                    "display_name":"Tejas"
+            "features": {
+                "bot_user": {
+                    "display_name": "Nilesh"
                 }
             },
-           "oauth_config":{
-         "scopes":{
-           "bot":[
-            "commands",
-              "chat:write",
-              "chat:write.public"
-           ]
-            
-         }
-         
-           }
- 
+            "oauth_config": {
+                "scopes": {
+                    "bot": [
+                        "commands",
+                        "chat:write",
+                        "chat:write.public"
+                    ]
+
+                }
+
             }
-           
-        })
+
+        }
+
     })
-    res.send(req.body)
+    console.log("bot called");
+    const resp = await axios.post("https://slack.com/api/apps.manifest.create", data, {
+        headers: {
+            Authorization: `Bearer ${req.body.slackToken}`,
+            "Content-type": "application/json",
+            charset:"UTF-8"
+        }
+    })
+    // const jsonResp = await resp.json();
+    console.log("resp",resp.data);
+    // res.send(req.body)
 })
 
 module.exports = router

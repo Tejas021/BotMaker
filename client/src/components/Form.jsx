@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import "./Form.css"
 import axios from 'axios'
+import Card from './Card'
 
 const Form = () => {
 
@@ -13,7 +14,7 @@ const Form = () => {
 
     const handleSubmit = async () => {
         console.log("data", data);
-         await axios.post("http://127.0.0.1:3000/bot", data);
+        const res =  axios.post("http://127.0.0.1:3000/bot", data).then(res=>console.log(res)).catch(e=>console.log(e));
     }
 
     return (
@@ -38,6 +39,17 @@ const Form = () => {
                     <button className="btn" onClick={handleSubmit} type="button">Submit</button>
                 </div>
             </div>
+            <div style={{
+                    margin:'5% 0 0 0',
+                    display:'flex',
+                    flexWrap:'wrap',
+                    alignItems:'center',
+                    justifyContent:'space-evenly'
+                    }}>
+                        <Card />
+                        <Card />
+                        <Card />
+                </div>
         </div>
     )
 }

@@ -1,5 +1,6 @@
 const express = require('express')
 const axios = require('axios')
+const Bot = require('../models/Bot')
 const router = express.Router()
 
 router.post("/bot", async (req, res) => {
@@ -45,6 +46,13 @@ router.post("/bot", async (req, res) => {
     })
     const jsonResp = await resp.data;
     console.log("resp",resp.data);
+    const newBot = new Bot({name:req.body.botName})
+    try {
+        const savedBot = await newBot.save();
+        console.log(savedBot);
+      } catch (err) {
+        console.log(err);
+      }
     res.send(jsonResp)
 })
 

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Card = () => {
+const Card = ({name}) => {
   return (
     <div
     style={{
@@ -17,7 +17,7 @@ const Card = () => {
             margin:'15px 0 0px 0'
         }}
          src="https://thumbs.dreamstime.com/b/ai-robot-head-chat-bot-icon-isolated-white-background-ai-robot-head-chat-bot-icon-109860127.jpg" alt="" />
-        <p style={{color:'black'}}>Name</p>
+        <p style={{color:'black'}}>{name}</p>
     </div>
   )
 }

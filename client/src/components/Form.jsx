@@ -11,18 +11,19 @@ const Form = () => {
         channelName: "",
         slackToken: "",
     })
+    const [bots, setBots] = useState([])
 
     const handleSubmit = async () => {
         console.log("data", data);
-         await axios.post("http://127.0.0.1:3000/bot", data).then(res=>console.log(res)).catch(err=>console.log(err));
-         setData({
+        await axios.post("http://127.0.0.1:3000/bot", data).then(res => setBots([...bots, { ...res.data, name: data.botName }])).catch(err => console.log(err));
+        setData({
             botName: '',
             workspaceName: "",
             channelName: "",
             slackToken: "",
         })
     }
-
+    console.log(bots);
     return (
         <div className='formBody'>
             <div className="container">
@@ -45,17 +46,21 @@ const Form = () => {
                     <button className="btn" onClick={handleSubmit} type="button">Submit</button>
                 </div>
             </div>
-            <div style={{
-                    margin:'5% 0 0 0',
-                    display:'flex',
-                    flexWrap:'wrap',
-                    alignItems:'center',
-                    justifyContent:'space-evenly'
-                    }}>
-                        <Card />
-                        <Card />
-                        <Card />
-                </div>
+            {
+                (bots.length > 0) &&
+                    bots.map((b)=>{
+                        return <div style={{
+                            margin: '5% 0 0 0',
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            alignItems: 'center',
+                            justifyContent: 'space-evenly'
+                        }}>
+                            <Card name={b.name} />
+                        </div> 
+                    })
+            }
+
         </div>
     )
 }

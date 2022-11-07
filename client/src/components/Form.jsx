@@ -14,7 +14,13 @@ const Form = () => {
 
     const handleSubmit = async () => {
         console.log("data", data);
-        const res =  axios.post("http://127.0.0.1:3000/bot", data).then(res=>console.log(res)).catch(e=>console.log(e));
+         await axios.post("http://127.0.0.1:3000/bot", data).then(res=>console.log(res)).catch(err=>console.log(err));
+         setData({
+            botName: '',
+            workspaceName: "",
+            channelName: "",
+            slackToken: "",
+        })
     }
 
     return (
